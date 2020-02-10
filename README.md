@@ -1,15 +1,15 @@
 Тестовое задание для роли Dev (Web/Front).
 
 Технологии:
-  Web:
+  - Web:
     - Angular
     - Apollo Client
     - Ant Design
-  Server:
+  - Server:
     - Go
     - GraphQL
     - nginx
-  DevOps:
+  - DevOps:
     - Docker
     - docker-compose
 
@@ -20,13 +20,13 @@
   - Небольшой сервер для данного приложения был реализован самостоятельно. 
   - Подготовлен способ развертывания приложения на локальной машине.
 
-Ссылка на репозиторий:
+Ссылка на репозиторий: https://github.com/CherniyFY/author-book/
 
 Требования для развертывания на локальной машине:
 - Docker
 - docker-compose
 
 Инструкция для развертывания на локальной машине:
-1. git clone https...
+1. git clone https://github.com/CherniyFY/author-book/
 2. cd author-book
 3. docker-compose -f "docker-compose.yaml" up -d --build
