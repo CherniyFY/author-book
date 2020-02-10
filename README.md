@@ -30,3 +30,7 @@
 1. git clone https://github.com/CherniyFY/author-book/
 2. cd author-book
 3. docker-compose -f "docker-compose.yaml" up -d --build
+4. Открыть в браузере http://localhost
+
+Для завершения работы с проектом:
+1. docker-compose -f "docker-compose.yaml" down
