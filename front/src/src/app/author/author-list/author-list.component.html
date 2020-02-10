@@ -1,0 +1,32 @@
+<nz-input-group [nzSuffix]="suffixIconSearch" class="search">
+  <input
+    #searchText
+    type="text"
+    nz-input
+    placeholder="Поиск"
+    (keyup)="search(searchText.value)"
+  />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+<nz-table #basicTable [nzData]="filterAuthors | async">
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Имя</th>
+      <th>Количество книг</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let data of basicTable.data; index as i"
+      (click)="navToAuthor(data)"
+      class="table__row"
+    >
+      <td>{{ i + 1 }}</td>
+      <td>{{ data.firstName }} {{ data.lastName }}</td>
+      <td>{{ data.books.length }}</td>
+    </tr>
+  </tbody>
+</nz-table>

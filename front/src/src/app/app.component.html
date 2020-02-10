@@ -1,0 +1,82 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="sidebar-logo">
+      <h1 *ngIf="isCollapsed" style="margin: 0;">А&К</h1>
+      <h1 *ngIf="!isCollapsed">Авторы & Книги</h1>
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/author">
+          <i nz-icon nzType="user"></i>
+          <span>Авторы</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/book">
+          <i nz-icon nzType="book"></i>
+          <span>Книги</span>
+        </a>
+      </li>
+      <nz-divider></nz-divider>
+      <li nz-menu-item nzMatchRouter *ngIf="!(isLoggedIn$ | async)">
+        <a routerLink="user/signin">
+          <i nz-icon nzType="login"></i>
+          <span>Войти</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="!(isLoggedIn$ | async)">
+        <a routerLink="user/signup">
+          <i nz-icon nzType="idcard"></i>
+          <span>Регистрация</span>
+        </a>
+      </li>
+      <li
+        *ngIf="isLoggedIn$ | async"
+        (click)="showLogoutModal()"
+        [class.logout--collapsed]="isCollapsed"
+        [class.logout]="!isCollapsed"
+      >
+        <i nz-icon nzType="logout" class="logout__icon"></i>
+        <span *ngIf="!isCollapsed">Выйти</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+<nz-modal
+  [(nzVisible)]="logoutModalVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <h2>Выйти из аккаунта?</h2>
+</nz-modal>

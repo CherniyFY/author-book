@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  nginx_network:
+    driver: bridge
+
+services:
+  goapp:
+    build: api
+    volumes:
+      - ./api/src:/go/src/authorBook
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - ./.config/conf.d:/etc/nginx/conf.d
+    depends_on: 
+      - goapp
+      - front
+    networks:
+      - nginx_network
+
+  front:
+    build: front
+    restart: always
+    volumes:
+      - ./front/src/:/front/src/
+    depends_on: 
+      - goapp
+    networks: 
+      - nginx_network

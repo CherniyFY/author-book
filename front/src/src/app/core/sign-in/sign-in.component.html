@@ -1,0 +1,40 @@
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<form nz-form [formGroup]="signinForm">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Пожалуйста, введите Ваш логин">
+      <nz-input-group>
+        <input
+          type="text"
+          nz-input
+          formControlName="username"
+          placeholder="Логин*"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Пожалуйста, введите Ваш пароль">
+      <nz-input-group>
+        <input
+          type="password"
+          nz-input
+          formControlName="password"
+          placeholder="Пароль*"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button
+    nz-button
+    nzType="primary"
+    [disabled]="signinForm.invalid"
+    class="first-button"
+    (click)="signin()"
+  >
+    Войти
+  </button>
+  <button nz-button nzType="default" routerLink="/user/signup">
+    Зарегистрироваться
+  </button>
+</form>

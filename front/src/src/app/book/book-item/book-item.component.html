@@ -1,0 +1,50 @@
+<h1>{{ book.name }}</h1>
+<h5>{{ book.publishDate }}</h5>
+<a [routerLink]="['/author', book.author.id]">
+  <h3>{{ book.author.firstName }} {{ book.author.lastName }}</h3>
+</a>
+<p class="description">{{ book.description }}</p>
+<nz-list
+  [nzDataSource]="commentsPage | async"
+  nzBordered
+  [nzHeader]="commentInput"
+  [nzPagination]="pagination"
+  [nzRenderItem]="item"
+>
+  <ng-template #commentInput>
+    <textarea
+      rows="4"
+      nz-input
+      [(ngModel)]="inputValue"
+      [disabled]="!(isLoggedIn$ | async)"
+    ></textarea>
+    <button
+      nz-button
+      nzType="primary"
+      class="comment-button"
+      (click)="comment()"
+      [disabled]="!(isLoggedIn$ | async)"
+    >
+      Отправить
+    </button>
+    <span *ngIf="!(isLoggedIn$ | async)">
+      Комментарии могут оставлять только зарегистированные пользователи.
+      <a routerLink="/user/signin">Войти</a>
+    </span>
+  </ng-template>
+  <ng-template #item let-item>
+    <nz-list-item>
+      <h4>{{ item.user.firstName }} {{ item.user.lastName }}</h4>
+      <h5 class="date">{{ item.date }}</h5>
+      <p>{{ item.text }}</p>
+    </nz-list-item>
+  </ng-template>
+  <ng-template #pagination>
+    <nz-pagination
+      [nzPageIndex]="1"
+      [nzPageSize]="10"
+      [nzTotal]="book.comments.length"
+      (nzPageIndexChange)="changePage($event)"
+    ></nz-pagination>
+  </ng-template>
+</nz-list>
